@@ -1,6 +1,7 @@
 package com.arka.usuario_service.DTO;
 
 import com.arka.usuario_service.model.UserType;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class AdminDto {
     private String nombre;
+    @Email
     private String email;
     private String password;
     private UserType tipo;
