@@ -1,8 +1,6 @@
 package com.arka.usuario_service.controller;
 
-import com.arka.usuario_service.DTO.AdminDto;
-import com.arka.usuario_service.DTO.UserDto;
-import com.arka.usuario_service.DTO.UserResponse;
+import com.arka.usuario_service.DTO.*;
 import com.arka.usuario_service.model.Usuarios;
 import com.arka.usuario_service.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -62,5 +60,15 @@ public class UsuarioController {
         return ResponseEntity.ok(eliminado);
     }
 
+    @PutMapping("/update-password")
+    public ResponseEntity<String> updatePassword(@RequestBody UpdateUserRequest request) {
+        service.updatePassword(request.getEmail(), request.getNewPassword());
+        return ResponseEntity.ok("Password updated successfully");
+    }
 
+    public ResponseEntity<UserResponse> updateUser(
+            @RequestParam String currentEmail,
+            @RequestBody UserUpdateEmailOrName request) {
+        return ResponseEntity.ok(service.updateUser(currentEmail, request));
+    }
 }

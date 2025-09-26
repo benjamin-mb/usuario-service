@@ -17,6 +17,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
+  spring:
+    autoconfigure:
+      exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
 eureka:
     client:
       service-url:
