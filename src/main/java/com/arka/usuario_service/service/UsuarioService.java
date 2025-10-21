@@ -7,25 +7,20 @@ import com.arka.usuario_service.DTO.UserUpdateEmailOrName;
 import com.arka.usuario_service.Mapper.UserMapper;
 import com.arka.usuario_service.model.UserType;
 import com.arka.usuario_service.model.Usuarios;
-import com.arka.usuario_service.repositorio.UsuarioRepositorio;
-import jakarta.ws.rs.NotFoundException;
-import org.springframework.http.HttpStatus;
+import com.arka.usuario_service.repositorio.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepositorio repository;
+    private final UsuarioRepository repository;
     private final UserMapper mapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepositorio repository, UserMapper mapper, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository repository, UserMapper mapper, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;

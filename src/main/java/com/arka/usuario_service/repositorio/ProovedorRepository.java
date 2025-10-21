@@ -9,5 +9,4 @@ public interface ProovedorRepository extends JpaRepository<Proovedores,Integer> 
     Boolean existsByNombre(String nombre);
     boolean existsById(Integer id);
 
-
 }

@@ -1,10 +1,13 @@
 package com.arka.usuario_service.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -32,6 +35,9 @@ public class Usuarios {
     @Column(columnDefinition = "ENUM('cliente','administrador')", nullable = true)
     private UserType tipo;
 
+    @OneToMany(mappedBy = "usuario", cascade=CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Direcciones> direcciones;
 
     public Usuarios(String nombre, String email, String password) {
         this.nombre = nombre;

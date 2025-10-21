@@ -18,11 +18,6 @@ public class UsuarioController {
         this.service = service;
     }
 
-    @GetMapping("/health")
-    public String health(){
-        return "health";
-    }
-
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsuarios() {
         List<UserResponse> usuarios = service.findAll();
@@ -66,6 +61,7 @@ public class UsuarioController {
         return ResponseEntity.ok("Password updated successfully");
     }
 
+    @PutMapping("/update-user")
     public ResponseEntity<UserResponse> updateUser(
             @RequestParam String currentEmail,
             @RequestBody UserUpdateEmailOrName request) {
