@@ -32,7 +32,7 @@ public class UsuarioService {
         }
 
         validatePassword(dto.getPassword());
-
+        dto.setEmail(dto.getEmail().trim());
         Usuarios newUser = mapper.toEntity(dto);
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         if (newUser.getTipo() == UserType.administrador){throw new RuntimeException("You can't create a admin User");}
@@ -53,7 +53,8 @@ public class UsuarioService {
     }
 
     public UserResponse findByEmail(String email) {
-    Usuarios user = repository.findByEmail(email)
+       String email2=email.trim();
+    Usuarios user = repository.findByEmail(email2)
             .orElseThrow(() -> new IllegalArgumentException("Email not found"));
     return mapper.ToResponse(user);
     }
@@ -82,17 +83,19 @@ public class UsuarioService {
 
     public void updatePassword(String email, String password){
 
-        Usuarios usuarioUpdate=repository.findByEmail(email)
-                .orElseThrow(()->new RuntimeException("User not found"));
+        String emailValid=email.trim();
+        Usuarios usuarioUpdate=repository.findByEmail(emailValid)
+                .orElseThrow(()->new IllegalArgumentException("User not found"));
 
-        validatePassword(password);
+        String passwordValid=password.trim();
+        validatePassword(passwordValid);
         usuarioUpdate.setPassword(passwordEncoder.encode(password));
         repository.save(usuarioUpdate);
     }
 
     public UserResponse updateUser(String currentEmail,UserUpdateEmailOrName request) {
-        Usuarios user = repository.findByEmail(currentEmail)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        Usuarios user = repository.findByEmail(currentEmail.trim())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (request.getNombre() != null && !request.getNombre().isBlank()) {
             user.setNombre(request.getNombre());
