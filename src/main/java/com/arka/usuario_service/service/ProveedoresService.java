@@ -2,6 +2,7 @@ package com.arka.usuario_service.service;
 
 import com.arka.usuario_service.DTO.ProovedorDto;
 import com.arka.usuario_service.Mapper.ProovedorMapper;
+import com.arka.usuario_service.excepcion.ProveedorNotFoundException;
 import com.arka.usuario_service.model.Proovedores;
 import com.arka.usuario_service.repositorio.ProovedorRepository;
 import org.springframework.stereotype.Service;
@@ -44,13 +45,13 @@ public class ProveedoresService {
 
     public Proovedores findById(Integer id){
         return repository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("user not founf by id:"+id));
+                .orElseThrow(()->new ProveedorNotFoundException("user not founf by id:"+id));
 
     }
 
     public Proovedores updateProovedor(Proovedores proovedor){
         Proovedores provedorFound=repository.findById(proovedor.getId())
-                .orElseThrow(()-> new IllegalArgumentException("producto not found with id:"+proovedor.getId()));
+                .orElseThrow(()-> new ProveedorNotFoundException("producto not found with id:"+proovedor.getId()));
 
         if (!(proovedor.getNombre() ==null)){
             provedorFound.setNombre(proovedor.getNombre());

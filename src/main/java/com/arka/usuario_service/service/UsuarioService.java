@@ -5,6 +5,7 @@ import com.arka.usuario_service.DTO.UserDto;
 import com.arka.usuario_service.DTO.UserResponse;
 import com.arka.usuario_service.DTO.UserUpdateEmailOrName;
 import com.arka.usuario_service.Mapper.UserMapper;
+import com.arka.usuario_service.excepcion.UsuarIoNotFound;
 import com.arka.usuario_service.model.UserType;
 import com.arka.usuario_service.model.Usuarios;
 import com.arka.usuario_service.repositorio.UsuarioRepository;
@@ -55,7 +56,7 @@ public class UsuarioService {
     public UserResponse findByEmail(String email) {
        String email2=email.trim();
     Usuarios user = repository.findByEmail(email2)
-            .orElseThrow(() -> new IllegalArgumentException("Email not found"));
+            .orElseThrow(() -> new UsuarIoNotFound("Email not found"));
     return mapper.ToResponse(user);
     }
 
@@ -67,7 +68,7 @@ public class UsuarioService {
 
     public UserResponse delete(Integer id) {
     Usuarios user = repository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+            .orElseThrow(() -> new UsuarIoNotFound("User not found"));
     repository.delete(user);
     return mapper.ToResponse(user);
     }
@@ -85,7 +86,7 @@ public class UsuarioService {
 
         String emailValid=email.trim();
         Usuarios usuarioUpdate=repository.findByEmail(emailValid)
-                .orElseThrow(()->new IllegalArgumentException("User not found"));
+                .orElseThrow(()->new UsuarIoNotFound("User not found"));
 
         String passwordValid=password.trim();
         validatePassword(passwordValid);
@@ -95,7 +96,7 @@ public class UsuarioService {
 
     public UserResponse updateUser(String currentEmail,UserUpdateEmailOrName request) {
         Usuarios user = repository.findByEmail(currentEmail.trim())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new UsuarIoNotFound("User not found"));
 
         if (request.getNombre() != null && !request.getNombre().isBlank()) {
             user.setNombre(request.getNombre());
@@ -112,5 +113,10 @@ public class UsuarioService {
         return mapper.ToResponse(updatedUser);
     }
 
+    public UserResponse findById(Integer id){
+        Usuarios usuario=repository.findById(id)
+                .orElseThrow(()->new UsuarIoNotFound("usuario no encontrado"));
+        return mapper.ToResponse(usuario);
+    }
 
 }

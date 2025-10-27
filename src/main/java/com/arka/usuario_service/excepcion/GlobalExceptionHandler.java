@@ -12,6 +12,15 @@ import java.util.Map;
 @RestControllerAdvice(basePackages = "com.arka.usuario_service.controller")
 public class GlobalExceptionHandler {
 
+            @ExceptionHandler({UsuarIoNotFound.class,ProveedorNotFoundException.class})
+    public ResponseEntity<Map<String, Object>> handleIllegalArgument(UsuarIoNotFound ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("timestamp", LocalDateTime.now());
+        error.put("message", ex.getMessage());
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.badRequest().body(error);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
         Map<String, Object> error = new HashMap<>();

@@ -27,7 +27,7 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUsuarioById(@PathVariable Integer id) {
-        UserResponse usuario = service.delete(id);
+        UserResponse usuario = service.findById(id);
         return ResponseEntity.ok(usuario);
     }
 
