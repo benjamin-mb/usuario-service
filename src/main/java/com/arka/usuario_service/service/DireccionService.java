@@ -2,6 +2,7 @@ package com.arka.usuario_service.service;
 
 import com.arka.usuario_service.DTO.DtoAddressCreate;
 import com.arka.usuario_service.Mapper.DireccionMapper;
+import com.arka.usuario_service.excepcion.UsuarIoNotFound;
 import com.arka.usuario_service.model.Direcciones;
 import com.arka.usuario_service.model.Usuarios;
 import com.arka.usuario_service.repositorio.DireccionesRepository;
@@ -27,9 +28,9 @@ public class DireccionService {
     public Direcciones crearDireccion(Integer idUsuario, DtoAddressCreate dto) {
 
         Usuarios usuario = usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + idUsuario));
+                .orElseThrow(() -> new UsuarIoNotFound("User not found with id: " + idUsuario));
 
-        if ("admin".equalsIgnoreCase(usuario.getTipo().toString())) {
+        if ("administrador".equalsIgnoreCase(usuario.getTipo().toString())) {
             throw new IllegalArgumentException("Admins cannot have addresses");
         }
 

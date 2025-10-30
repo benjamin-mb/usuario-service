@@ -31,8 +31,8 @@ public class ProveedoresService {
         if (proovedor.getCaracteristicas().isBlank()||proovedor.getCaracteristicas()==null){
             throw new IllegalArgumentException("caracteristicas can not be blank");
         }
-        if (proovedor.getTelefono().isBlank()||proovedor.getTelefono()==null||proovedor.getTelefono().length()<8){
-            throw new IllegalArgumentException("phone number can not be blank or contains less than 5 didgits");
+        if (proovedor.getTelefono().isBlank()||proovedor.getTelefono()==null||proovedor.getTelefono().length()<10){
+            throw new IllegalArgumentException("phone number can not be blank or contains less than 10 didgits");
         }
         Proovedores proovedortoEntity=mapper.toEntity(proovedor);
         Proovedores proovedoreSaved=repository.save(proovedortoEntity);
@@ -53,13 +53,16 @@ public class ProveedoresService {
         Proovedores provedorFound=repository.findById(proovedor.getId())
                 .orElseThrow(()-> new ProveedorNotFoundException("producto not found with id:"+proovedor.getId()));
 
-        if (!(proovedor.getNombre() ==null)){
+        if (!(proovedor.getNombre() ==null)&& !(proovedor.getNombre().isBlank())){
             provedorFound.setNombre(proovedor.getNombre());
         }
-        if (!(proovedor.getTelefono()==null)){
+        if (!(proovedor.getTelefono()==null) && !(proovedor.getTelefono().isBlank())){
+            if (proovedor.getTelefono().length()<10){
+                throw new IllegalArgumentException("phone number can not be blank or contains less than 10 didgits");
+            }
             provedorFound.setTelefono(proovedor.getTelefono());
         }
-        if (!(proovedor.getCaracteristicas()==null)){
+        if (!(proovedor.getCaracteristicas()==null)&& !(proovedor.getCaracteristicas().isBlank())){
             provedorFound.setCaracteristicas(proovedor.getCaracteristicas());
         }
         return repository.save(provedorFound);

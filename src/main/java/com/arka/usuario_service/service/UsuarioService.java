@@ -33,7 +33,8 @@ public class UsuarioService {
         }
 
         validatePassword(dto.getPassword());
-        dto.setEmail(dto.getEmail().trim());
+        String email= dto.getEmail().trim();
+        dto.setEmail(email);
         Usuarios newUser = mapper.toEntity(dto);
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         if (newUser.getTipo() == UserType.administrador){throw new RuntimeException("You can't create a admin User");}
