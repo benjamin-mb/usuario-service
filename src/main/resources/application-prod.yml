@@ -1,0 +1,23 @@
+spring:
+  config:
+    import: optional:configserver:http://Benjamin-ARKALB-409397954.us-east-2.elb.amazonaws.com:8888
+
+  cloud:
+    config:
+      fail-fast: false
+      retry:
+        max-attempts: 6
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+logging:
+  level:
+    root: WARN
+    com.arka: INFO
