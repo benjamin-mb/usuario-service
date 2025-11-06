@@ -1,6 +1,6 @@
 spring:
   config:
-    import: optional:configserver:http://Benjamin-ARKALB-409397954.us-east-2.elb.amazonaws.com:8888
+    import: optional:configserver:http://arka-load-balancer-1687287239.us-east-2.elb.amazonaws.com:8888
 
   cloud:
     config:
