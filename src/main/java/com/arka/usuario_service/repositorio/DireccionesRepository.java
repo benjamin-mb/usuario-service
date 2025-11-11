@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface DireccionesRepository extends JpaRepository<Direcciones, Integer> {
     Optional<Direcciones>findByUsuario_IdAndPrincipal(Integer idUsuario, boolean principal);
-    List<Direcciones>findAllByUsuario_IdAndPrincipal(Integer idUsuario, boolean principal);
+    Optional<Direcciones>findByUsuario_IdAndId(Integer idUsuario, Integer id);
     List<Direcciones>findAllByUsuario_Id(Integer idUsuario);
     @Modifying
     @Query("UPDATE Direcciones d SET d.principal = false WHERE d.usuario.id = :idUsuario")

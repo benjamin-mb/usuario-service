@@ -28,6 +28,10 @@ public class UsuarioService {
     }
 
     public UserResponse create(UserDto dto) {
+
+        if (dto.getNombre().isBlank() || dto.getNombre()==null){
+            throw new IllegalArgumentException("Name cannot be null or blank");
+        }
         if (repository.existsByEmail(dto.getEmail())) {
             throw new IllegalArgumentException("Email is already registered");
         }

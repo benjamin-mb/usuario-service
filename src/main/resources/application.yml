@@ -4,5 +4,7 @@ server:
 spring:
   application:
     name: usuario-service
+  config:
+    import: optional:configserver:http://localhost:8888
   profiles:
     active: dev

@@ -18,29 +18,24 @@ public class ProovedorController {
         this.proveedoresService = proveedoresService;
     }
 
-    // Crear proveedor
     @PostMapping
     public ResponseEntity<Proovedores> createProveedor(@RequestBody ProovedorDto proovedorDto) {
         Proovedores nuevoProveedor = proveedoresService.create(proovedorDto);
         return ResponseEntity.ok(nuevoProveedor);
     }
 
-    // Obtener todos los proveedores
     @GetMapping
     public ResponseEntity<List<Proovedores>> getAllProveedores() {
         return ResponseEntity.ok(proveedoresService.findAll());
     }
 
-    // Obtener proveedor por ID
     @GetMapping("/{id}")
     public ResponseEntity<Proovedores> getProveedorById(@PathVariable Integer id) {
         return ResponseEntity.ok(proveedoresService.findById(id));
     }
 
-    // Actualizar proveedor
     @PutMapping("/{id}")
     public ResponseEntity<Proovedores> updateProveedor(@PathVariable Integer id, @RequestBody Proovedores proovedor) {
-        // Aseguramos que el ID recibido coincida con el del objeto
         proovedor.setId(id);
         return ResponseEntity.ok(proveedoresService.updateProovedor(proovedor));
     }

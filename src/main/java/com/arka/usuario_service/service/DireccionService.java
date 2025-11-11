@@ -66,6 +66,11 @@ public class DireccionService {
     }
 
     @Transactional
+    public Direcciones obtenerDireccionPorIdUsuarioYIdDireccion(Integer idUsuario,Integer idDireccion){
+        return repository.findByUsuario_IdAndId(idUsuario,idDireccion)
+                .orElseThrow(()->new IllegalArgumentException("id not found by id: "+idDireccion));
+    }
+    @Transactional
     public Direcciones actualizarDireccion(Integer idDireccion, DtoAddressCreate dto) {
 
         Direcciones direccionExistente = repository.findById(idDireccion)

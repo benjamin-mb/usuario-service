@@ -35,6 +35,11 @@ public class DireccionController {
         return ResponseEntity.ok(service.obtenerDireccionPrincipal(idUsuario));
     }
 
+    @GetMapping("/{idDireccion}")
+    public ResponseEntity<Direcciones>getDireccionById(@PathVariable Integer idUsuario, @PathVariable Integer idDireccion){
+        return  ResponseEntity.ok(service.obtenerDireccionPorIdUsuarioYIdDireccion(idUsuario,idDireccion));
+    }
+
     @PutMapping("/{idDireccion}")
     public ResponseEntity<Direcciones> actualizar(
             @PathVariable Integer idDireccion,
